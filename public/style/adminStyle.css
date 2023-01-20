@@ -1,0 +1,283 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: cursive, sans-serif;
+}
+
+body {
+	background: linear-gradient(90deg, #c7c5f4, #776bcc);
+}
+/*LOGIN FELÜLET*/
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+}
+
+.screen {
+	background: linear-gradient(90deg, #5d54a4, #7c78b8);
+	position: relative;
+	height: 600px;
+	width: 360px;
+	box-shadow: 0px 0px 24px #5c5696;
+}
+
+.screen__content {
+	z-index: 1;
+	position: relative;
+	height: 100%;
+}
+
+.screen__background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	-webkit-clip-path: inset(0 0 0 0);
+	clip-path: inset(0 0 0 0);
+}
+
+.screen__background__shape {
+	transform: rotate(45deg);
+	position: absolute;
+}
+
+.screen__background__shape1 {
+	height: 520px;
+	width: 520px;
+	background: #fff;
+	top: -50px;
+	right: 120px;
+	border-radius: 0 72px 0 0;
+}
+
+.screen__background__shape2 {
+	height: 220px;
+	width: 220px;
+	background: #6c63ac;
+	top: -172px;
+	right: 0;
+	border-radius: 32px;
+}
+
+.screen__background__shape3 {
+	height: 540px;
+	width: 190px;
+	background: linear-gradient(270deg, #5d54a4, #6a679e);
+	top: -24px;
+	right: 0;
+	border-radius: 32px;
+}
+
+.screen__background__shape4 {
+	height: 400px;
+	width: 200px;
+	background: #7e7bb9;
+	top: 420px;
+	right: 50px;
+	border-radius: 60px;
+}
+
+.login {
+	width: 320px;
+	padding: 30px;
+	padding-top: 156px;
+}
+
+.login__field {
+	padding: 20px 0px;
+	position: relative;
+}
+
+.login__icon {
+	position: absolute;
+	top: 30px;
+	color: #7875b5;
+}
+
+.login__input {
+	border: none;
+	border-bottom: 2px solid #d1d1d4;
+	background: none;
+	padding: 10px;
+	padding-left: 24px;
+	font-weight: 700;
+	width: 75%;
+	transition: 0.2s;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+	outline: none;
+	border-bottom-color: #6a679e;
+}
+
+.login__submit {
+	background: #fff;
+	font-size: 14px;
+	margin-top: 30px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #d4d3e8;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	color: #4c489d;
+	box-shadow: 0px 2px 2px #5c5696;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+	border-color: #6a679e;
+	outline: none;
+}
+
+.button__icon {
+	font-size: 24px;
+	margin-left: auto;
+	color: #7875b5;
+}
+
+.social-login {
+	position: absolute;
+	height: 140px;
+	width: 160px;
+	text-align: center;
+	bottom: 0px;
+	right: 0px;
+	color: #fff;
+}
+
+/*ADMIN FELÜLET*/
+
+/*dátum fejléc*/
+.date-header {
+	display: flex;
+	justify-content: space-between;
+	background: #f7f7f7;
+	border: 1px solid #ccc;
+	padding: 8px;
+	border-radius: 3px;
+}
+.date-header-frame {
+	background-color: #f8f1f1;
+	padding: 8px;
+	border-bottom: 1px solid #fff;
+	font-weight: 600;
+	border-radius: 0 2px 2px 0;
+}
+
+.arrow {
+	cursor: pointer;
+}
+/*input - fodrászok szűrése*/
+.hd-select {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.hd-select * {
+	margin: 5px;
+}
+
+/* fodrászok*/
+
+.hairdressers {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	background-color: white;
+	border-radius: 5px;
+	margin: 8px;
+}
+.hd-image{
+	height: 100px;
+}
+.hd-image img {
+	max-height: 100px;
+	max-width: 100px;
+	border-radius: 100%;
+	margin: 5px 5px 0 5px;
+}
+
+.hd-card {
+	width: 125px;
+}
+.hd-card-time {
+	min-width: 50px;
+	text-align: center;
+}
+.hd-card-main {
+	height: 220px;
+	text-align: center;
+}
+
+.hd-days {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	margin-left: 5px;
+}
+.hd-days-display {
+	text-align: center;
+}
+.hd-day-cards {
+	display: flex;
+	flex-wrap: wrap;
+}
+.reserved-time {
+	width: 115px;
+	font-size: 12px;
+	margin: 2px;
+	padding: 2px;
+	border-radius: 3px;
+	text-align: center;
+	position:relative;
+}
+.reserved-time:last-child{
+	position: absolute;
+	bottom:0;
+    right:0;
+}
+.sideband-time {
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.hd-time {
+	position: relative;
+	height: 60px;
+	border: thin solid #6a679e;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.hd-time:last-child {
+	margin-bottom: 8px;
+}
+.dellink {
+	
+	color: white;
+	text-decoration: none;
+	background-color: #c42f2f;
+	float: right;
+	margin: 3px 1px 1px 6px;
+	border-radius: 3px;
+	padding: 5px;
+	font-size: 8px;
+	cursor: pointer;
+	position: absolute;
+    bottom: 0;
+    right: 0;	
+}

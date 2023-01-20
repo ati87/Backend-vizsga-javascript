@@ -1,0 +1,363 @@
+* {
+    box-sizing: border-box;
+    font-family: cursive, sans-serif;
+}
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.navbar {
+    height: 50px;
+    background: linear-gradient(90deg, #4b6181, #98d7f5);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+#page-logo {
+    height: 50px;
+}
+
+#page-logo img {
+    height: 100%;
+    margin: 0 3px 0 0;
+}
+
+.title {
+    color: white;
+    font-size: 23px;
+}
+/*MAIN*/
+.main {
+    display: flex;
+    justify-content: center;
+    background-image: url("logo.png");
+    background-position: center center;
+    min-height: 830px;
+    background-repeat: no-repeat;
+    width: 100%;
+    margin-top: 7px;
+}
+.main-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*SIDE*/
+#sideband {
+    display: none;
+    margin-right: 10px;
+    color: #fff;
+    width: 250px;
+    padding-left: 20px;
+    height: 100vh;
+    background: linear-gradient(180deg, #419ac3, #fefefe);
+    border-top-right-radius: 80px;
+}
+#sideband aside p {
+    margin: 0;
+    padding: 40px 0;
+}
+#sideband aside a {
+    font-size: 12px;
+    color: #fff;
+    display: block;
+    padding: 12px;
+    padding-left: 30px;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+#sideband aside a:hover {
+    color: #3f5efb;
+    background: #fff;
+    outline: none;
+    position: relative;
+    background-color: #fff;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+/*CARD*/
+.inner-card {
+    width: 250px;
+    background: linear-gradient(180deg, #52a9d1, #d9e3e9);
+}
+.hd-card {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    background: #97bbe8;
+    padding: 5px;
+    border-radius: 8px;
+}
+.hd-card:first-of-type {
+    margin-top: 0 !important;
+}
+.hd-image {
+    text-align: center;
+    border-radius: 3px;
+}
+.hd-image img {
+    max-height: 150px;
+    max-width: 150px;
+    border-radius: 100%;
+    margin-top: 5px;
+}
+
+.hd-card-services ul li:first-child {
+    text-decoration: underline;
+    list-style: none;
+}
+
+.hd-nickname,
+.hd-titulus {
+    text-align: center;
+}
+
+/*CALENDARIUM*/
+
+.date-week {
+    display: flex;
+}
+/*col - napok*/
+.date-days-services {
+    width: 100px;
+    border: thin solid white;
+    flex-grow: 1;
+    background: #ebebeb;
+}
+/*header - napok*/
+.date-days {
+    background-color: #bab0b0;
+    padding: 8px 0px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 2px;
+}
+.date-days-day {
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 6px;
+}
+.date-header-frame {
+    background-color: #f8f1f1;
+    padding: 8px;
+    border-bottom: 1px solid #fff;
+    font-weight: 600;
+    border-radius: 0 2px 2px 0;
+}
+.date-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+/*időpontok*/
+.data-time {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    width: 55px;
+    margin: auto;
+}
+.date-time-services {
+    cursor: pointer;
+    margin: 5px 0;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    border-radius: 3px;
+    padding: 2px 20px;
+}
+.date-time-services-reserved {
+    margin: 5px 0;
+    background-color: rgb(148, 148, 161);
+    color: white;
+    text-align: center;
+    border-radius: 3px;
+    padding: 2px 20px;
+}
+.date-time-services:hover {
+    color: black;
+    box-shadow: 1px 1px black;
+}
+.date-time-services-more {
+    cursor: pointer;
+    margin: 5px 0;
+    text-align: center;
+    border-radius: 3px;
+}
+.date-time-services-more:hover {
+    color: rgb(46, 45, 45);
+}
+.d-none {
+    display: none;
+}
+
+.arrow {
+    cursor: pointer;
+    font-size: 20px;
+}
+.left-arrow {
+    margin-left: 10px;
+}
+.right-arrow {
+    margin-right: 10px;
+}
+
+/*időpontfoglalás - form*/
+.booking * {
+    margin: auto;
+}
+.booking {
+    background-color: #8dc9d4;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.booking-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.booking-form-inner {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 5px !important;
+}
+.booking-services {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.booking-services-inner {
+    margin: 3px 0 !important;
+    width: 100%;
+}
+.booking-price {
+    display: inline;
+}
+
+/*lefoglalás button*/
+.button-3 {
+    appearance: none;
+    background-color: #30acf1;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    margin-bottom: 10px !important;
+    margin-top: 5px !important;
+}
+
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+}
+
+.button-3:hover {
+    background-color: #25678b;
+}
+
+.button-3:focus {
+    box-shadow: rgba(79, 76, 150, 0.4) 0 0 0 3px;
+    outline: none;
+}
+
+.button-3:active {
+    background-color: #30acf1;
+    box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+
+/* vissza button */
+.button-2 {
+    appearance: none;
+    background-color: #30acf1;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    margin-bottom: 8px !important;
+}
+.button-2:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+}
+
+.button-2:hover {
+    background-color: #25678b;
+}
+
+.button-2:focus {
+    box-shadow: rgba(79, 76, 150, 0.4) 0 0 0 3px;
+    outline: none;
+}
+
+.button-2:active {
+    background-color: #30acf1;
+    box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+
+/*------------------MEDIA QUERY---------------------*/
+
+/*MAIN*/
+@media screen and (max-width: 1290px) {
+    /**/
+    .inner-card {
+        display: flex;
+        width: 700px;
+    }
+    .hd-card {
+        max-width: min-content;
+    }
+    .hd-main {
+        margin: 0 auto;
+    }
+    .hd-image {
+        margin-left: 5px;
+    }
+}
