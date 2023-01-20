@@ -10,23 +10,6 @@ const app = express();
 const mongodb = require(`mongodb`);
 const MongoClient = mongodb.MongoClient;
 
-function dbConnect1(callBack) {
-
-    const uri = process.env.DB_URI;
-
-    const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-
-    client.connect().then(res => {
-        let collectionHD = client.db("Vizsgamunka-backend").collection("fodraszok");
-        let collectionAdmin = client.db("Vizsgamunka-backend").collection("adminUsers");
-
-        callBack(client, collectionAdmin, collectionHD);   //colletion az adatbázis
-    });
-}
-
 function dbConnect(collectionName, callBack) {
 
     const uri = "mongodb+srv://HarmosAttila87:Iddqd20171001@cluster0.1mspjs9.mongodb.net/?retryWrites=true&w=majority";
