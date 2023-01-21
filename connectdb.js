@@ -58,8 +58,8 @@ app.post(`/newclient`, (req, response) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'developer.ha87@gmail.com',
-            pass: 'wyzsdhisrtyfzhkl'
+            user: EMAIL_USER,
+            pass: EMAIL_PASSWORD
         }
     });
     var serv = "";
@@ -162,8 +162,8 @@ app.delete(`/delete/:name/time:time/day:day/id:id/email:email`, (req, response) 
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: 'developer.ha87@gmail.com',
-                        pass: 'wyzsdhisrtyfzhkl'
+                        user: EMAIL_USER,
+                        pass: EMAIL_PASSWORD
                     }
                 });
 
