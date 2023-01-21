@@ -12,7 +12,7 @@ const MongoClient = mongodb.MongoClient;
 
 function dbConnect(collectionName, callBack) {
 
-    const uri = "mongodb+srv://HarmosAttila87:Iddqd20171001@cluster0.1mspjs9.mongodb.net/?retryWrites=true&w=majority";
+    const uri = process.env.DB_URI;
 
     const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -58,8 +58,8 @@ app.post(`/newclient`, (req, response) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: EMAIL_USER,
-            pass: EMAIL_PASSWORD
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
         }
     });
     var serv = "";
@@ -162,8 +162,8 @@ app.delete(`/delete/:name/time:time/day:day/id:id/email:email`, (req, response) 
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: EMAIL_USER,
-                        pass: EMAIL_PASSWORD
+                        user: process.env.EMAIL_USER,
+                        pass: process.env.EMAIL_PASSWORD
                     }
                 });
 
