@@ -18,7 +18,7 @@ $s("#login__submit").onclick = function () {
             },
             function (res) {
                 var HAIRDRESSERS = JSON.parse(res);
-                renderHairdressers(HAIRDRESSERS);
+                adminInterface.renderHairdressers(HAIRDRESSERS);
             })
     }
 }
@@ -42,37 +42,27 @@ var date = new Date();
 var months = ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"];
 var week = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 
-function renderHairdressers(obj) {
-    //media query
-    var x = window.matchMedia("(min-width: 1600px)");
-    var y = window.matchMedia("(min-width: 1200px)");
-    if (n === 0) {
-        myFunctionX(x);
-        myFunctionY(y);
-    }
-
-    var main = $s("#main");
-    var stringTpl = "";
-
-    var nowDate = new Date(date);
-    var date7 = new Date(date);;
-    date7.setDate(date7.getDate() + n - 1);
-
-    stringTpl += `
-        <div class="main-container">
-            <div class="date-header-frame"> 
-                <div class="date-header">
-                    <div class="left-arrow arrow">&#8592;</div>
-                    <div class="date-header-week"> ${months[nowDate.getMonth()] + ". " + (("0" + nowDate.getDate()).slice(-2)) + ". - " +
-                    (months[nowDate.getMonth() + 1] === undefined ? months[nowDate.getMonth() - 11] : months[nowDate.getMonth()])
-                     + ". " + (("0" + date7.getDate()).slice(-2))}    
-                    </div>
-                    <div class="right-arrow arrow">&#8594;</div> 
+function dateStepTPL(nowDate, date7) {
+    let stringTpl = `
+    <div class="main-container">
+        <div class="date-header-frame"> 
+            <div class="date-header">
+                <div class="left-arrow arrow">&#8592;</div>
+                <div class="date-header-week"> ${months[nowDate.getMonth()] + ". " + (("0" + nowDate.getDate()).slice(-2)) + ". - " +
+        (months[nowDate.getMonth() + 1] === undefined ? months[nowDate.getMonth() - 11] : months[nowDate.getMonth()])
+        + ". " + (("0" + date7.getDate()).slice(-2))}    
                 </div>
-            </div> 
-           <div class="hd-select">
-    `;
-    //input - fodrászok szűrése
+                <div class="right-arrow arrow">&#8594;</div> 
+            </div>
+        </div> 
+       <div class="hd-select">
+`;
+    return stringTpl
+};
+
+//input - fodrászok szűrése
+function filterEmployee(obj) {
+    let stringTpl = "";
     for (const check of obj) {
         stringTpl += `
                 <div>
@@ -89,40 +79,43 @@ function renderHairdressers(obj) {
             </div> 
             <div class="hairdressers">
     `;
+    return stringTpl;
+}
 
-
+function adminTPL(obj, nowDate) {
+    let stringTpl = "";
     for (let i = 0; i < n; i++) {
         var openTime = nowDate;
         var closeTime = "18:30";
         openTime.setHours(8, 0, 0, 0);
 
         stringTpl += `
-        <div class="hd-days">
-            <div class="hd-days-display">${months[nowDate.getMonth()] + ". " 
+    <div class="hd-days">
+        <div class="hd-days-display">${months[nowDate.getMonth()] + ". "
             + (("0" + nowDate.getDate()).slice(-2)) + " " + week[nowDate.getDay()]}
-            </div>
-            <div class="hd-day-cards">
-            `;
+        </div>
+        <div class="hd-day-cards">
+        `;
 
         if (i === 0) {
             stringTpl += `
-                <div class="hd-card-time">
-                    <div class="hd-card-main">
-                    </div>
-                <div>
-        `;
+            <div class="hd-card-time">
+                <div class="hd-card-main">
+                </div>
+            <div>
+    `;
 
             //nyitvatartási idők kiírása
-            while (closeTime != (padTo2Digits(openTime.getHours()) + ":" + padTo2Digits(openTime.getMinutes()))) {
+            while (closeTime != (adminInterface.padTo2Digits(openTime.getHours()) + ":" + adminInterface.padTo2Digits(openTime.getMinutes()))) {
                 stringTpl += `
-       <div class="sideband-time">${padTo2Digits(openTime.getHours()) + ":" + padTo2Digits(openTime.getMinutes())}</div>
-        `;
+   <div class="sideband-time">${adminInterface.padTo2Digits(openTime.getHours()) + ":" + adminInterface.padTo2Digits(openTime.getMinutes())}</div>
+    `;
                 openTime.setMinutes(openTime.getMinutes() + 30);
             }
             stringTpl += `
-            </div>
         </div>
-      `;
+    </div>
+  `;
         }
         //fodrászok és foglalásaik megjelenítése
         for (const hdItem of obj) {
@@ -130,49 +123,49 @@ function renderHairdressers(obj) {
             //fodrászok szűrése
             if (filterHd.find(e => e === hdItem._id) || filterHd.length === 0) {
                 stringTpl += `
-        <div class="hd-card">
-            <div class="hd-card-main" data-id="${hdItem._id}" data-name="${hdItem.name}">
-                <div class="inner-card">
-                        <div class="hd-image">
-                            <img src="${hdItem.img || "img/noimage.jpg"}">
-                        </div>
-                        <div class="hd-nickname">${hdItem.name}</div>
-                        <div class="hd-titulus">${hdItem.titulus}</div>
-                        <div>`
+    <div class="hd-card">
+        <div class="hd-card-main" data-id="${hdItem._id}" data-name="${hdItem.name}">
+            <div class="inner-card">
+                    <div class="hd-image">
+                        <img src="${hdItem.img || "img/noimage.jpg"}">
+                    </div>
+                    <div class="hd-nickname">${hdItem.name}</div>
+                    <div class="hd-titulus">${hdItem.titulus}</div>
+                    <div>`
                 //nyitvatartás megjelenítése
                 var opening = hdItem.open.find(p => p.day === week[nowDate.getDay()]);
                 stringTpl += `
-                        ${opening ? opening.from + " - " + opening.to : "zárva"}
-                        </div>
-                </div>
+                    ${opening ? opening.from + " - " + opening.to : "zárva"}
+                    </div>
             </div>
-        <div>
-        `;
+        </div>
+    <div>
+    `;
                 //foglalások megjelenítése
-                while (closeTime != (padTo2Digits(openTime.getHours()) + ":" + padTo2Digits(openTime.getMinutes()))) {
-                    let time = (padTo2Digits(openTime.getHours()) + ":" + padTo2Digits(openTime.getMinutes()));
+                while (closeTime != (adminInterface.padTo2Digits(openTime.getHours()) + ":" + adminInterface.padTo2Digits(openTime.getMinutes()))) {
+                    let time = (adminInterface.padTo2Digits(openTime.getHours()) + ":" + adminInterface.padTo2Digits(openTime.getMinutes()));
                     let checkRes = true;
 
                     hdItem.reservations.find(e => {
-                        
-                        if (e.dateDay === formatDate(openTime) && e.dateTime === time) {
+
+                        if (e.dateDay === adminInterface.formatDate(openTime) && e.dateTime === time) {
                             let heigth = (e.serviceTime / 30) * 60;
                             let endOfServices = new Date(openTime);
                             endOfServices.setMinutes(endOfServices.getMinutes() + e.serviceTime);
-                            let endOfServiceTime = (padTo2Digits(endOfServices.getHours()) + ":" + padTo2Digits(endOfServices.getMinutes()));
+                            let endOfServiceTime = (adminInterface.padTo2Digits(endOfServices.getHours()) + ":" + adminInterface.padTo2Digits(endOfServices.getMinutes()));
                             stringTpl += `
-                    <div class="hd-time" style="height:${heigth}px;" >
-                         <div class="reserved-time" style="background-color:${random_bg_color()};height:${heigth - 5}px;"> 
-                            <div>${e.name}</div>
-                            <div style="display:none">${e.dateDay}</div>
-                            <div style="display:none">${hdItem._id}</div>
-                            <div style="display:none">${e.email}</div>
-                            <div>${e.services}</div>
-                            <div>${e.dateTime} - ${endOfServiceTime} </div>
-                            <div class="dellink">X</div>
-                         </div>
-                    </div>
-                    `;
+                <div class="hd-time" style="height:${heigth}px;" >
+                     <div class="reserved-time" style="background-color:${adminInterface.random_bg_color()};height:${heigth - 5}px;"> 
+                        <div>${e.name}</div>
+                        <div style="display:none">${e.dateDay}</div>
+                        <div style="display:none">${hdItem._id}</div>
+                        <div style="display:none">${e.email}</div>
+                        <div>${e.services}</div>
+                        <div>${e.dateTime} - ${endOfServiceTime} </div>
+                        <div class="dellink">X</div>
+                     </div>
+                </div>
+                `;
                             openTime.setMinutes(openTime.getMinutes() + e.serviceTime);
                             checkRes = false;
                         }
@@ -180,150 +173,205 @@ function renderHairdressers(obj) {
                     //ha nincs foglalás (üres)
                     if (checkRes) {
                         stringTpl += `
-                <div class="hd-time">
-                </div>
-                `;
+            <div class="hd-time">
+            </div>
+            `;
                         openTime.setMinutes(openTime.getMinutes() + 30);
                     }
                 }
 
                 stringTpl += `
-                </div>
             </div>
-          `;
+        </div>
+      `;
             }
         }
 
-
         stringTpl += `
-            </div>
         </div>
-        `;
+    </div>
+    `;
         nowDate.setDate(nowDate.getDate() + 1);
     }
 
     stringTpl += `
-            </div>
         </div>
-        `;
+    </div>
+    `;
 
-    main.innerHTML = stringTpl;
+    return stringTpl;
+}
+const adminInterface = {
+    renderHairdressers: function renderHairdressers(obj, list) {
 
-    //dátum léptetése előre
-    $s(".right-arrow").onclick = function () {
-        date.setDate(date.getDate() + n);
-        renderHairdressers(obj);
-    };
+        console.log(n);
+        console.log("fdsfds");
+        //media query
+        var x = window.matchMedia("(min-width: 1600px)");
+        var y = window.matchMedia("(min-width: 1200px)");
+        if (n === 0) {
+            adminInterface.myFunctionX(x);
+            adminInterface.myFunctionY(y);
+        }
+        console.log(x);
+        var main = $s("#main");
+        var nowDate = new Date(date);
+        var date7 = new Date(date);
+        date7.setDate(date7.getDate() + n - 1);
 
-    //dátum léptetése vissza
-    $s(".left-arrow").onclick = function () {
-        date.setDate(date.getDate() - n);
-        renderHairdressers(obj);
+        var text = "";
+        text += dateStepTPL(nowDate, date7);
 
-    };
+        text += filterEmployee(obj);
 
-    //dátum felosztása YYYY-MM-DD
-    function formatDate(date) {
-        return [
-            date.getFullYear(),
-            padTo2Digits(date.getMonth() + 1),
-            padTo2Digits(date.getDate()),
-        ].join('.');
-    };
+        if (list)
+            text += adminTPL(list, nowDate);
+        else
+            text += adminTPL(obj, nowDate);
 
-    //kétjegyű szám
-    function padTo2Digits(num) {
-        return String(num).padStart(2, '0');
-    };
+        main.innerHTML = text;
 
-    //szűrés
-    $s("#filter").onclick = function () {
+        //dátum léptetése előre
+        $s(".right-arrow").onclick = function () {
+            date.setDate(date.getDate() + n);
+            adminInterface.renderHairdressers(obj);
+        };
 
-        filterHd = [];
-        $sAll(`input[name="hairdressers"]`).forEach(d => {
-            if (d.checked === true) {
-                filterHd.push(d.value);
+        //dátum léptetése vissza
+        $s(".left-arrow").onclick = function () {
+            date.setDate(date.getDate() - n);
+            adminInterface.renderHairdressers(obj);
+
+        };
+
+        //szűrés
+        $s("#filter").onclick = function () {
+
+            filterHd = [];
+            $sAll(`input[name="hairdressers"]`).forEach(d => {
+                if (d.checked === true) {
+                    filterHd.push(d.value)
+                }
+            });
+            if (filterHd.length > 0) {
+                switch (true) {
+                    case filterHd.length === 1 && filterHd.length > 0:
+                        n = 4
+                        break;
+
+                    default:
+                        break;
+                }
+
+                request.post(
+                    "/filter-hairdressers",
+                    {
+                        filterHd
+                    },
+                    function (res) {
+                        var FILTER = JSON.parse(res);
+                        adminInterface.renderHairdressers(obj, FILTER);
+                    });
+            }
+        };
+
+        //szűrés törlése
+        $s("#filter-delete").onclick = function () {
+            if (filterHd.length > 0) {
+                filterHd = [];
+                adminInterface.renderHairdressers(obj);
+            }
+        };
+
+        //foglalások törlése és küldése a server felé
+        $sAll(".reserved-time").forEach(d => {
+            d.querySelector(".dellink").onclick = function () {
+                let name = d.children[0].innerText;
+                let day = d.children[1].innerText;
+                let id = d.children[2].innerText;
+                let email = d.children[3].innerText;
+                let time = d.children[5].innerText.slice(0, 5);
+
+                if (confirm("Biztos, hogy törölni szeretnéd " + name + " foglalását?")) {
+                    request.delete(`delete/${name}/time${time}/day${day}/id${id}/email${email}`, function (res) {
+                        adminInterface.renderHairdressers(JSON.parse(res));
+                    });
+                }
             }
         });
-        if (filterHd.length > 0) {
-            renderHairdressers(obj);
-        }
-    };
 
-    //szűrés törlése
-    $s("#filter-delete").onclick = function () {
-        if (filterHd.length > 0) {
-            filterHd = [];
-            renderHairdressers(obj);
-        }
-    };
+        //media query figyelése
+        x.addEventListener("change", (event) => {
 
-    //foglalások törlése és küldése a server felé
-    $sAll(".reserved-time").forEach(d => {
-        d.querySelector(".dellink").onclick = function () {
-            let name = d.children[0].innerText;
-            let day = d.children[1].innerText;
-            let id = d.children[2].innerText;
-            let email = d.children[3].innerText;
-            let time = d.children[5].innerText.slice(0, 5);
-            if (confirm("Biztos, hogy törölni szeretnéd " + name + " foglalását?")) {
-
-                request.delete(`delete/${name}/time${time}/day${day}/id${id}/email${email}`, function (res) {
-                    renderHairdressers(JSON.parse(res));
-                    
-                }); 
+            if (event.matches) {
+                n = 3;
+                adminInterface.renderHairdressers(obj);
+            } else {
+                n = 2;
+                adminInterface.renderHairdressers(obj);
             }
-        }
-    });
+        });
+
+        y.addEventListener("change", (event) => {
+
+            if (event.matches) {
+                n = 2;
+                adminInterface.renderHairdressers(obj);
+            } else {
+                n = 1;
+                adminInterface.renderHairdressers(obj);
+            }
+        });
+
+
+
+    },
+    //dátum felosztása YYYY-MM-DD
+    formatDate: function formatDate(date) {
+        return [
+            date.getFullYear(),
+            adminInterface.padTo2Digits(date.getMonth() + 1),
+            adminInterface.padTo2Digits(date.getDate()),
+        ].join('.');
+    },
+
+    //kétjegyű szám
+    padTo2Digits: function padTo2Digits(num) {
+        return String(num).padStart(2, '0');
+    },
+
+
 
     //véletlen szín generálás
-    function random_bg_color() {
+    random_bg_color: function random_bg_color() {
         var x = Math.floor(Math.random() * 256);
         var y = Math.floor(Math.random() * 200) + 56;
         var z = Math.floor(Math.random() * 156) + 100;
         var bgColor = "rgb(" + x + "," + y + "," + z + ")";
 
         return bgColor;
-    }
+    },
 
     //media query
-    function myFunctionX(x) {
+    myFunctionX: function myFunctionX(x) {
         if (x.matches) {
             n = 3;
         } else {
             n = 2;
         }
-    }
-    function myFunctionY(y) {
+    },
+    myFunctionY: function myFunctionY(y) {
         if (y.matches) {
             n = 2;
         } else {
             n = 1;
         }
     }
-    //media query figyelése
-    x.addEventListener("change", (event) => {
-
-        if (event.matches) {
-            n = 3;
-            renderHairdressers(obj);
-        } else {
-            n = 2;
-            renderHairdressers(obj);
-        }
-    });
-    y.addEventListener("change", (event) => {
-
-        if (event.matches) {
-            n = 2;
-            renderHairdressers(obj);
-        } else {
-            n = 1;
-            renderHairdressers(obj);
-        }
-    });
-
 }
+
+
+
+
 
 
 

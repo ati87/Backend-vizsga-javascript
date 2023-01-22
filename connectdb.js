@@ -12,7 +12,7 @@ const MongoClient = mongodb.MongoClient;
 
 function dbConnect(collectionName, callBack) {
 
-    const uri = "mongodb+srv://HarmosAttila87:Iddqd20171001@cluster0.1mspjs9.mongodb.net/?retryWrites=true&w=majority";
+    const uri = process.env.DB_URI;
 
     const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -58,8 +58,8 @@ app.post(`/newclient`, (req, response) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: EMAIL_USER,
-            pass: EMAIL_PASSWORD
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
         }
     });
     var serv = "";
@@ -96,6 +96,40 @@ app.post(`/newclient`, (req, response) => {
             cli.close();
         });
 
+    });
+
+});
+
+//szűrés (Női vagy Férfi fodrász)
+app.post(`/filter-gender`, (req, response) => {
+
+    const filter = req.body;
+    dbConnect("fodraszok", (cli, collectionHD) => {
+
+        collectionHD.find({ class: filter.gender })
+            .toArray()
+            .then(res => {
+                cli.close();
+                response.json(res);
+            });
+    });
+
+});
+
+//szűrés (szolgáltatások)
+app.post(`/filter-services`, (req, response) => {
+
+    const filter = req.body;
+
+    dbConnect("fodraszok", (cli, collectionHD) => {
+
+         collectionHD.find({services:{$elemMatch:{service: { $in:filter.filterHd}}}})
+            .toArray()
+            .then(res => {
+                cli.close();
+                response.json(res);
+
+            });
     });
 
 });
@@ -162,8 +196,8 @@ app.delete(`/delete/:name/time:time/day:day/id:id/email:email`, (req, response) 
                 var transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        user: EMAIL_USER,
-                        pass: EMAIL_PASSWORD
+                        user: process.env.EMAIL_USER,
+                        pass: process.env.EMAIL_PASSWORD
                     }
                 });
 
@@ -186,5 +220,21 @@ app.delete(`/delete/:name/time:time/day:day/id:id/email:email`, (req, response) 
     });
 });
 
+//szűrés (fodrászok)
+app.post(`/filter-hairdressers`, (req, response) => {
+
+    const filter = req.body;
+
+    dbConnect("fodraszok", (cli, collectionHD) => {
+
+         collectionHD.find({_id: { $in:filter.filterHd}})
+            .toArray()
+            .then(res => {
+                cli.close();
+                response.json(res);
+            });
+    });
+
+});
 
 app.listen(process.env.PORT);

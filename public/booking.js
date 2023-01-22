@@ -1,6 +1,52 @@
 import { request } from "./js/request.mod.js";
 import { appointments } from "./script.js";
 
+function formTPL(serv, hairdresserList) {
+    let text = `
+    <div class="booking" data-newid="${serv.dataset.id}">
+           <fieldset>
+               <legend><h2>Időpont foglalás ${serv.dataset.date + ". " + serv.dataset.time} óra</h2></legend>
+               <div class="booking-form">
+                   <div class="booking-form-inner">
+                       <label for="name">Név:</label>
+                       <input type="text" id="name" name="name" required>
+                   </div>
+                   <div class="booking-form-inner">
+                       <label for="mail">Email cím:</label>
+                       <input type="text" id="mail" name="mail" required>
+                   </div>
+                   <div class="booking-form-inner">
+                       <label for="tel">Telefonszám:</label>
+                       <input type="text" id="tel" name="tel" required placeholder="06xxxxxxxxx">
+                   </div>
+                   <fieldset>
+                       <legend>Kérem válasszon a szolgáltatások közül.</legend>
+                       <div class="booking-services">
+                       `;
+    for (const hdItem of hairdresserList) {
+        if (hdItem._id == serv.dataset.id) {
+            for (let i = 0; i < hdItem.services.length; i++) {
+                text += `
+                        <div class="booking-services-inner">
+                            <input type="checkbox" name="hd-services" data-worktime="${hdItem.services[i].workingMinutes}" value="${hdItem.services[i].service}">
+                            <label for="vehicle1"> ${hdItem.services[i].service}</label>
+                            <div class="booking-price">Ár: ${hdItem.services[i].price} Ft</div>
+                        </div>
+                        `;
+            }
+        }
+    }
+    text += `
+                                </div>
+                            </fieldset>
+                        </fieldset>
+                    <button id="booking-button" class="button-3">Lefoglalás</button>
+                    <button id="booking-button-back" class="button-2">Vissza</button>
+                </div>
+            `;
+    return text;
+}
+
 const booking = {
     render: function (serv, sel, hairdresserList) {
 
@@ -8,51 +54,9 @@ const booking = {
         const $sAll = s => document.querySelectorAll(s);
         var main = $s(sel);
         serv.onclick = function () {
-            var mainString = ``;
-            mainString += `
-         <div class="booking" data-newid="${serv.dataset.id}">
-                <fieldset>
-                    <legend><h2>Időpont foglalás ${serv.dataset.date + ". " + serv.dataset.time} óra</h2></legend>
-                    <div class="booking-form">
-                        <div class="booking-form-inner">
-                            <label for="name">Név:</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="booking-form-inner">
-                            <label for="mail">Email cím:</label>
-                            <input type="text" id="mail" name="mail" required>
-                        </div>
-                        <div class="booking-form-inner">
-                            <label for="tel">Telefonszám:</label>
-                            <input type="text" id="tel" name="tel" required placeholder="06xxxxxxxxx">
-                        </div>
-                        <fieldset>
-                            <legend>Kérem válasszon a szolgáltatások közül.</legend>
-                            <div class="booking-services">
-                            `;
+            var mainString = formTPL(serv, hairdresserList);
 
-            for (const hdItem of hairdresserList) {
-                if (hdItem._id == serv.dataset.id) {
-                    for (let i = 0; i < hdItem.services.length; i++) {
-                        mainString += `
-                <div class="booking-services-inner">
-                    <input type="checkbox" name="hd-services" data-worktime="${hdItem.services[i].workingMinutes}" value="${hdItem.services[i].service}">
-                    <label for="vehicle1"> ${hdItem.services[i].service}</label>
-                    <div class="booking-price">Ár: ${hdItem.services[i].price} Ft</div>
-                </div>
-                `;
-                    }
-                }
-            }
-            mainString += `
-                        </div>
-                    </fieldset>
-                </fieldset>
-            <button id="booking-button" class="button-3">Lefoglalás</button>
-            <button id="booking-button-back" class="button-2">Vissza</button>
-        </div>
-    `;
-            //FOGLALÁS TEMPLATE VÉGE
+
             main.innerHTML = mainString;
 
             //IDŐPONT FOGLALÁS ÉS ADATBÁZISBA TÖRTÉNŐ FELTÖLTÉSE
@@ -73,9 +77,9 @@ const booking = {
                         for (let dressTime of hairdresserList) {
                             if (dressTime._id == hdId) {
                                 for (let j = 0; j < dressTime.reservations.length; j++) {
-                                    if (formatDate(new Date(dressTime.reservations[j].date)) === serv.dataset.date) {
+                                    if (appointments.formatDate(new Date(dressTime.reservations[j].date)) === serv.dataset.date) {
                                         let newResTime = new Date(serv.dataset.dateTime);
-                                        let reservedTime = new Date(dressTime.reservations[j].date)
+                                        let reservedTime = new Date(dressTime.reservations[j].date);
 
                                         newResTime.setMinutes(newResTime.getMinutes() + servTime);
                                         if (new Date(serv.dataset.dateTime).getTime() < reservedTime.getTime() && reservedTime.getTime() < newResTime.getTime()) {
@@ -94,7 +98,7 @@ const booking = {
                     //email,név és telefonszám ellenőrzése
                     if (phonenumber($s(`input[name="tel"]`)) && name($s(`input[name="name"]`).value.trim()) && ValidateEmail($s(`input[name="mail"]`)))
                         if (serv.dataset.closing === serv.dataset.time && servTime > 61) {
-                            alert("Sajnáljuk, de utolsó időpontra két szolgáltatásnál többet nem választhat ki.")
+                            alert("Sajnáljuk, de utolsó időpontra két szolgáltatásnál többet nem választhat ki.");
                         } else {
                             if (confirm("Lefoglalja az időpontot?"))
                                 request.post(
@@ -116,13 +120,13 @@ const booking = {
                                         alert(`Foglalása megtörtént! ${serv.dataset.date + " " + serv.dataset.time + "-kor várjuk Önt."}`);
                                         appointments.load();
                                     }
-                                )
+                                );
                         }
                 } else if (!checkInp) {
-                    alert("A kért szolgáltatás(ok) ütköznek a következő foglalással. Kérem válasszon kevesebb szolgáltatást vagy másik időpontot.")
+                    alert("A kért szolgáltatás(ok) ütköznek a következő foglalással. Kérem válasszon kevesebb szolgáltatást vagy másik időpontot.");
 
                 } else {
-                    alert("A foglaláshoz kérem, hogy töltse ki az űrlapot.")
+                    alert("A foglaláshoz kérem, hogy töltse ki az űrlapot.");
                 }
             }
             //vissza a főoldalra
@@ -140,6 +144,7 @@ const booking = {
                 return true;
             }
         }
+        
         //telefonszám ellenőrzés
         function phonenumber(inputtxt) {
             var regex = /^\d{11}$/;
@@ -151,6 +156,7 @@ const booking = {
                 return false;
             }
         }
+
         //email ellenőrzés
         function ValidateEmail(inputText) {
             var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -161,26 +167,6 @@ const booking = {
                 alert("Érvénytelen e-mail címet adott meg!");
                 return false;
             }
-        }
-        //dátum felosztása YYYY-MM-DD
-        function formatDate(date) {
-            return [
-                date.getFullYear(),
-                padTo2Digits(date.getMonth() + 1),
-                padTo2Digits(date.getDate()),
-            ].join('.');
-        }
-        //kétjegyű szám
-        function padTo2Digits(num) {
-            return String(num).padStart(2, '0');
-        }
-        //oldal betöltése
-        function loads() {
-            request.get("/services", (res) => {
-                SERVICES = JSON.parse(res);
-                console.log("fds");
-                renderServices(SERVICES);
-            });
         }
     }
 }

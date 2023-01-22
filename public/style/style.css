@@ -1,12 +1,16 @@
 * {
     box-sizing: border-box;
     font-family: cursive, sans-serif;
+    margin: 0;
 }
 .container {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+}
+#date-stepping {
+    display: none;
 }
 
 .navbar {
@@ -43,7 +47,6 @@
 .main-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 /*SIDE*/
@@ -61,7 +64,7 @@
     margin: 0;
     padding: 40px 0;
 }
-#sideband aside a {
+#sideband aside div {
     font-size: 12px;
     color: #fff;
     display: block;
@@ -70,20 +73,13 @@
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
 }
-#sideband aside a:hover {
-    color: #3f5efb;
-    background: #fff;
-    outline: none;
-    position: relative;
-    background-color: #fff;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
+
 
 /*CARD*/
 .inner-card {
     width: 250px;
     background: linear-gradient(180deg, #52a9d1, #d9e3e9);
+    padding: 5px;
 }
 .hd-card {
     display: flex;
@@ -94,9 +90,12 @@
     padding: 5px;
     border-radius: 8px;
 }
-.hd-card:first-of-type {
-    margin-top: 0 !important;
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }
+
 .hd-image {
     text-align: center;
     border-radius: 3px;
@@ -105,7 +104,8 @@
     max-height: 150px;
     max-width: 150px;
     border-radius: 100%;
-    margin-top: 5px;
+    margin: 5px;
+    vertical-align: middle;
 }
 
 .hd-card-services ul li:first-child {
@@ -116,6 +116,9 @@
 .hd-nickname,
 .hd-titulus {
     text-align: center;
+}
+.mobil-appointments {
+    display: none;
 }
 
 /*CALENDARIUM*/
@@ -189,6 +192,10 @@
 .date-time-services:hover {
     color: black;
     box-shadow: 1px 1px black;
+}
+.date-time-services:active {
+    color: rgb(119, 112, 112);
+    background-color: rgb(44, 63, 168);
 }
 .date-time-services-more {
     cursor: pointer;
@@ -355,9 +362,73 @@
         max-width: min-content;
     }
     .hd-main {
-        margin: 0 auto;
+        margin-left: 18vw;
     }
     .hd-image {
         margin-left: 5px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    body {
+        margin: 0;
+    }
+    .container {
+        padding: 0;
+    }
+    .navbar {
+        border-radius: 0;
+    }
+    .card-calendarium {
+        width: 95vw;
+    }
+    #sideband {
+        display: none !important;
+    }
+    .inner-card {
+        width: auto;
+        width: 95vw;
+    }
+    .hd-card {
+        max-width: auto;
+    }
+    .hd-main {
+        margin-left: 30vw;
+    }
+}
+
+@media screen and (max-width: 670px) {
+    #date-stepping {
+        position: sticky;
+        top: 0;
+        display: flex;
+        width: 97vw;
+    }
+    .hd-main {
+        margin-left: 0vw;
+    }
+    .card-calendarium {
+        display: none;
+    }
+    .date-header-frame {
+        display: none;
+    }
+    .date-header {
+        width: inherit;
+    }
+
+    .mobil-appointments {
+        cursor: pointer;
+        display: block;
+        border-radius: 30px;
+        padding: 3px 10px 3px 10px;
+        margin-top: 4px;
+    }
+    .mobil-appointments:hover {
+        background-color: rgb(70, 70, 152);
+        color: white;
+    }
+    .mobil-appointments:active{
+        color: black;
     }
 }

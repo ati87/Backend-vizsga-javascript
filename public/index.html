@@ -28,15 +28,25 @@
         <div class="main">
             <div id="sideband">
                 <aside>
-                    <p> Menü </p>
-                    <a href="javascript:void(0)">
-                      <i class="fa fa-user-o" ></i>
-                     xxx
-                    </a>
-                    <a href="javascript:void(0)">
-                      <i class="fa fa-laptop" ></i>
-                      yyyy
-                    </a>
+                    <p> Szűrés </p>
+                    <div class="filter-sideban">
+                        <div>Fodrász:</div>
+                        <input type="radio" id="female" class="filter-item" name="search-1" value="Női">
+                        <label for="female">Női fodrász</label><br>
+                        <input type="radio" id="male" class="filter-item" name="search-1" value="Férfi">
+                        <label for="male">Férfi fodrász</label><br>
+                        <input type="radio" id="all" class="filter-item" name="search-1" value="all">
+                        <label for="all">Összes</label><br>
+                    </div>
+                    <div class="filter-sideban" id="filter-services">
+                        <div>Szolgáltatás:</div>
+                        <input type="checkbox" id="serv-1" class="filter-item search-2" name="search-2" value="Női hajvágás (rövid)">
+                        <label for="Női hajvágás (rövid)">Női hajvágás</label><br>
+                        <input type="checkbox" id="serv-2" class="filter-item search-2" name="search-2" value="Férfi hajvágás">
+                        <label for="Férfi hajvágás">Férfi hajvágás</label><br>
+                        <input type="checkbox" id="serv-3" class="filter-item search-2" name="search-2" value="Szakállvágás">
+                        <label for="Szakállvágás">Szakállvágás</label><br>
+                    </div>
                   </aside>
                   
                   
