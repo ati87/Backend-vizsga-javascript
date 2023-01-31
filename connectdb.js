@@ -35,7 +35,7 @@ app.use(express.json());
 
 //IDŐPONTFOGLALÁS kezdete
 
-//termékek megjelenítése
+//fodrászok megjelenítése
 app.get(`/services`, (request, response) => {
     dbConnect("fodraszok", (cli, collectionHD) => {
 
@@ -135,7 +135,7 @@ app.post(`/filter-services`, (req, response) => {
 });
 //IDŐPONTFOGLALÁS vége
 
-//ADMIN oldal kezdete
+//ADMIN oldal kezdete-----
 app.get(`/admin`, (req, res) => {
     fs.readFile(path.join(__dirname, `public`, `admin.html`), (err, body) => {
         res.writeHead(200, {
@@ -143,6 +143,19 @@ app.get(`/admin`, (req, res) => {
             'Content-Type': 'text/html'
         })
             .end(body);
+    });
+});
+
+app.get(`/login-cookie`, (request, response) => {
+    dbConnect("fodraszok", (cli, collectionHD) => {
+
+        collectionHD.find()
+            .toArray()
+            .then(res => {
+                cli.close();
+                response.json(res);
+
+            });
     });
 });
 

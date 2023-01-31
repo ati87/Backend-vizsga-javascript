@@ -160,18 +160,48 @@ body {
 
 /*ADMIN FELÜLET*/
 
+/*NAV*/
+.navbar {
+	height: 30px;
+	background: linear-gradient(90deg, #4b6181, #98d7f5);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.nav-logo {
+	display: flex;
+}
+#page-logo {
+	height: 30px;
+}
+
+#page-logo img {
+	height: 100%;
+	margin: 0 3px 0 0;
+}
+
+.title {
+	color: white;
+	font-size: 23px;
+	margin-left: 10px;
+}
+#logout {
+	cursor: pointer;
+	padding: 1px;
+	margin-right: 10px;
+}
 /*dátum fejléc*/
 .date-header {
 	display: flex;
 	justify-content: space-between;
 	background: #f7f7f7;
 	border: 1px solid #ccc;
-	padding: 8px;
+	padding: 3px;
 	border-radius: 3px;
 }
 .date-header-frame {
 	background-color: #f8f1f1;
-	padding: 8px;
+	padding: 5px;
 	border-bottom: 1px solid #fff;
 	font-weight: 600;
 	border-radius: 0 2px 2px 0;
@@ -179,6 +209,7 @@ body {
 
 .arrow {
 	cursor: pointer;
+	margin: 0 11px;
 }
 /*input - fodrászok szűrése*/
 .hd-select {
@@ -189,18 +220,21 @@ body {
 .hd-select * {
 	margin: 5px;
 }
+.btn {
+	padding: 2px 4px;
+	cursor: pointer;
+}
 
 /* fodrászok*/
 
 .hairdressers {
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: center;
 	background-color: white;
 	border-radius: 5px;
 	margin: 8px;
 }
-.hd-image{
+.hd-image {
 	height: 100px;
 }
 .hd-image img {
@@ -218,36 +252,46 @@ body {
 	text-align: center;
 }
 .hd-card-main {
-	height: 220px;
+	height: 170px;
 	text-align: center;
 }
-
+.hd-card-main-time {
+	height: 190px;
+}
 .hd-days {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	margin-left: 5px;
 }
+
 .hd-days-display {
 	text-align: center;
 }
+
 .hd-day-cards {
 	display: flex;
 	flex-wrap: wrap;
 }
+
 .reserved-time {
-	width: 115px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	font-size: 12px;
 	margin: 2px;
 	padding: 2px;
 	border-radius: 3px;
 	text-align: center;
-	position:relative;
+	position: relative;
 }
-.reserved-time:last-child{
+.reserved-time:last-child {
 	position: absolute;
-	bottom:0;
-    right:0;
+	bottom: 0;
+	right: 0;
+}
+.hd-services {
+	font-size: 10px;
+	padding: 2px 0;
 }
 .sideband-time {
 	height: 60px;
@@ -267,7 +311,6 @@ body {
 	margin-bottom: 8px;
 }
 .dellink {
-	
 	color: white;
 	text-decoration: none;
 	background-color: #c42f2f;
@@ -278,6 +321,18 @@ body {
 	font-size: 8px;
 	cursor: pointer;
 	position: absolute;
-    bottom: 0;
-    right: 0;	
+	bottom: 0;
+	right: 0;
+}
+.dellink:hover {
+	color: black;
+	background-color: yellow;
+}
+
+/*------------------MEDIA QUERY---------------------*/
+
+@media screen and (max-width: 600px) {
+	* {
+		font-size: 16px;
+	}
 }
