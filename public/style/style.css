@@ -9,9 +9,6 @@
     margin-right: auto;
     margin-left: auto;
 }
-#date-stepping {
-    display: none;
-}
 
 .navbar {
     height: 50px;
@@ -73,7 +70,6 @@
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
 }
-
 
 /*CARD*/
 .inner-card {
@@ -348,6 +344,13 @@
     background-color: #30acf1;
     box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }
+.mobil-calendar,
+.mobil-nickname {
+    display: none;
+}
+.mobil-calendar-close {
+    display: none;
+}
 
 /*------------------MEDIA QUERY---------------------*/
 
@@ -397,22 +400,65 @@
     }
 }
 
-@media screen and (max-width: 670px) {
-    #date-stepping {
+@media screen and (max-width: 767px) {
+    .date-header-frame {
         position: sticky;
         top: 0;
         display: flex;
-        width: 97vw;
+        width: 100%;
+        background-color: #f8f1f1;
+        padding: 8px;
+        border-bottom: 1px solid #fff;
+        font-weight: 600;
+        border-radius: 0 2px 2px 0;
     }
     .hd-main {
         margin-left: 0vw;
     }
+
+    .mobil-calendar-close {
+        position: fixed;
+        right: 32px;
+        top: 5px;
+        width: 32px;
+        height: 32px;
+        opacity: 0.3;
+        cursor: pointer;
+    }
+    .mobil-calendar-close:hover {
+        opacity: 1;
+    }
+    .mobil-calendar-close:before,
+    .mobil-calendar-close:after {
+        position: absolute;
+        left: 15px;
+        content: " ";
+        height: 33px;
+        width: 2px;
+        background-color: #333;
+    }
+    .mobil-calendar-close:before {
+        transform: rotate(45deg);
+    }
+    .mobil-calendar-close:after {
+        transform: rotate(-45deg);
+    }
+    .mobil-nickname {
+        display: block;
+    }
+
     .card-calendarium {
         display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 40px 5px 5px 5px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
     }
-    .date-header-frame {
-        display: none;
-    }
+
     .date-header {
         width: inherit;
     }
@@ -428,7 +474,50 @@
         background-color: rgb(70, 70, 152);
         color: white;
     }
-    .mobil-appointments:active{
+    .mobil-appointments:active {
         color: black;
+    }
+    .date-time-services {
+        margin: 5px 5px;
+        padding: 1px 5px;
+    }
+    .date-time-services-reserved {
+        margin: 5px 5px;
+        padding: 1px 5px;
+    }
+    .date-days {
+        padding: 6px 0px;
+    }
+    .child-date-text {
+        justify-content: center;
+    }
+    .child-date {
+        padding: 0;
+    }
+    .date-week {
+        flex-direction: column;
+    }
+    .date-days-services {
+        display: flex;
+        width: auto;
+    }
+    .date-days {
+        width: 25vw;
+    }
+    .data-time {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .booking h2 {
+        text-align: center;
+    }
+    .mobil-nickname {
+        text-align: center;
+        background: linear-gradient(180deg, #52a9d1, #d9e3e9);
+        margin-bottom: 2px;
+        padding: 5px;
+        font-weight: bold;
+        border-radius: 3px;
     }
 }
