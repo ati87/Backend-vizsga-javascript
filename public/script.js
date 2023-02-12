@@ -378,6 +378,12 @@ const appointments = {
             booking.render(serv, ".main-card", hairdresserList);
         });
 
+<<<<<<< HEAD
+=======
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+>>>>>>> 80e12d9b0811ed3b6bab5dfc340da0dc001d93d7
         //mobil nézet - időpontfoglalás megjelenítése
         $sAll(".mobil-appointments").forEach(d => {
             d.onclick = function () {
