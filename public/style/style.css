@@ -59,16 +59,18 @@
 }
 #sideband aside p {
     margin: 0;
-    padding: 40px 0;
+    padding: 40px 0 0 0;
 }
 #sideband aside div {
-    font-size: 12px;
     color: #fff;
     display: block;
     padding: 12px;
     padding-left: 30px;
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
+}
+.filter-sideban label{
+    margin: 5px;
 }
 
 /*CARD*/

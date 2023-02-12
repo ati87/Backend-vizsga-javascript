@@ -8,6 +8,7 @@ const express = require(`express`);
 const app = express();
 
 const mongodb = require(`mongodb`);
+const { hostname } = require('os');
 const MongoClient = mongodb.MongoClient;
 
 function dbConnect(collectionName, callBack) {
@@ -123,7 +124,7 @@ app.post(`/filter-services`, (req, response) => {
 
     dbConnect("fodraszok", (cli, collectionHD) => {
 
-         collectionHD.find({services:{$elemMatch:{service: { $in:filter.filterHd}}}})
+        collectionHD.find({ services: { $elemMatch: { service: { $in: filter.filterHd } } } })
             .toArray()
             .then(res => {
                 cli.close();
@@ -240,7 +241,7 @@ app.post(`/filter-hairdressers`, (req, response) => {
 
     dbConnect("fodraszok", (cli, collectionHD) => {
 
-         collectionHD.find({_id: { $in:filter.filterHd}})
+        collectionHD.find({ _id: { $in: filter.filterHd } })
             .toArray()
             .then(res => {
                 cli.close();
