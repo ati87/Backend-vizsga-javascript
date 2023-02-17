@@ -1,4 +1,11 @@
 {
+  "name": "hairdresser",
+  "version": "1.0.0",
+  "description": "My Node.js App",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

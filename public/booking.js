@@ -49,16 +49,20 @@ function formTPL(serv, hairdresserList) {
 
 const booking = {
     render: function (serv, sel, hairdresserList) {
-
         const $s = s => document.querySelector(s);
         const $sAll = s => document.querySelectorAll(s);
         var main = $s(sel);
+
+        var sideband = document.querySelector("#sideband");
+        
+
         serv.onclick = function () {
+            
             var mainString = formTPL(serv, hairdresserList);
 
-
+            
             main.innerHTML = mainString;
-
+            sideband.style.display = 'none';
             //IDŐPONT FOGLALÁS ÉS ADATBÁZISBA TÖRTÉNŐ FELTÖLTÉSE
             $s("#booking-button").onclick = function () {
                 var booking = [];
